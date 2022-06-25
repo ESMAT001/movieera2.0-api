@@ -1,13 +1,11 @@
-#!/user/bin/env node
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+
 
 /**
  * Module dependencies.
  */
 
-import http from 'http';
-import app from '../app';
+const http = require('http');
+const app = require('../app');
 
 /**
  * Normalize a port into a number, string, or false.

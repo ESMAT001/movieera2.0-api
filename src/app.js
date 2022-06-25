@@ -1,10 +1,12 @@
-import createError from 'http-errors';
-import express from 'express';
-import path from 'path';
-import logger from 'morgan';
+require('dotenv')
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-import indexRouter from '#routes/index';
-import usersRouter from '#routes/users';
+require('./db')
 
 var app = express();
 
@@ -12,7 +14,7 @@ var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 
 
 app.use('/', indexRouter);

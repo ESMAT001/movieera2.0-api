@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
-
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res) {
   res.send({
-    data:"hello"
+    status: '200',
+    message: 'Welcome to the API'
   })
 });
+
+
 
 module.exports = router;

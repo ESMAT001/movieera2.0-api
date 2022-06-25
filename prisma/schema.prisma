@@ -1,5 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -8,4 +6,28 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  isAdmin      Boolean     @default(false)
+  name         String
+  password     String
+  email        String      @unique
+  api_key      String
+  api_usage    ApiUsage[]
+  account_type AccountType
+  createdAt    DateTime    @default(now())
+
+  @@index([api_key,email])
+}
+
+type ApiUsage {
+  request_count Int      @default(0)
+  last_request  DateTime @default(now())
+}
+
+enum AccountType {
+  free
+  premium
 }
