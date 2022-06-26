@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,17 +13,20 @@ model User {
   name         String
   password     String
   email        String      @unique
-  api_key      String
+  api_key      String      @unique
   api_usage    ApiUsage[]
   account_type AccountType
   createdAt    DateTime    @default(now())
 
-  @@index([api_key,email])
+  @@index([api_key, email])
 }
 
-type ApiUsage {
+model ApiUsage {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   request_count Int      @default(0)
   last_request  DateTime @default(now())
+  api_key       String   @map("api_key")
+  User          User     @relation(fields: [api_key], references: [api_key], onDelete: Cascade)
 }
 
 enum AccountType {
